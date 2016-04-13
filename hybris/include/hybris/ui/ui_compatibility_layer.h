@@ -20,6 +20,11 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <unistd.h>
+#ifdef __ANDROID__
+#include <android/api-level.h>
+#else
+#include <android-config.h>
+#endif
 
 #ifdef __cplusplus
 extern "C" {
@@ -50,8 +55,10 @@ extern "C" {
 
     void* graphic_buffer_get_native_buffer(struct graphic_buffer *buffer);
 
+#if (defined(__ANDROID__) && __ANDROID_API__ < 21) || (!defined(__ANDROID__) && ANDROID_VERSION_MAJOR < 5)
     void graphic_buffer_set_index(struct graphic_buffer *buffer, int index);
     int graphic_buffer_get_index(struct graphic_buffer *buffer);
+#endif
 
     int graphic_buffer_init_check(struct graphic_buffer *buffer);
 

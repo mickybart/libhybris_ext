@@ -28,8 +28,12 @@
 
 HYBRIS_LIBRARY_INITIALIZE(sf, COMPAT_LIBRARY_PATH);
 
+#if (ANDROID_VERSION_MAJOR < 5)
 HYBRIS_IMPLEMENT_VOID_FUNCTION1(sf, sf_blank, size_t);
 HYBRIS_IMPLEMENT_VOID_FUNCTION1(sf, sf_unblank, size_t);
+#else
+HYBRIS_IMPLEMENT_VOID_FUNCTION2(sf, sf_set_power_mode, size_t, int);
+#endif
 HYBRIS_IMPLEMENT_FUNCTION1(sf, size_t, sf_get_display_width, size_t);
 HYBRIS_IMPLEMENT_FUNCTION1(sf, size_t, sf_get_display_height, size_t);
 HYBRIS_IMPLEMENT_FUNCTION1(sf, struct SfClient*, sf_client_create_full, int);

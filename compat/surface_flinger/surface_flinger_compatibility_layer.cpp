@@ -65,6 +65,7 @@ void report_surface_is_null_during_creation()
 }
 }
 
+#if __ANDROID_API__ < 21
 void sf_blank(size_t display_id)
 {
 	android::sp<android::IBinder> display;
@@ -100,6 +101,25 @@ void sf_unblank(size_t display_id)
 
 	android::SurfaceComposerClient::unblankDisplay(display);
 }
+#else
+void sf_set_power_mode(size_t display_id, int mode)
+{
+	android::sp<android::IBinder> display;
+
+	if (display_id == 0) {
+		display = android::SurfaceComposerClient::getBuiltInDisplay(
+				android::ISurfaceComposer::eDisplayIdMain);
+	} else if (display_id == 1) {
+		display = android::SurfaceComposerClient::getBuiltInDisplay(
+				android::ISurfaceComposer::eDisplayIdHdmi);
+	} else {
+		fprintf(stderr, "Warning: sf_set_power_mode invalid display_id (0 || 1)\n");
+		return;
+	}
+
+	android::SurfaceComposerClient::setDisplayPowerMode(display, mode);
+}
+#endif
 
 size_t sf_get_display_width(size_t display_id)
 {
@@ -353,3 +373,17 @@ void sf_surface_set_alpha(SfSurface* surface, float alpha)
 	assert(surface);
 	surface->surface_control->setAlpha(alpha);
 }
+
+/*
+void sf_surface_destroy()
+{
+}
+
+void sf_client_destroy()
+{    
+}
+
+void sf_destroy()
+{
+}
+*/

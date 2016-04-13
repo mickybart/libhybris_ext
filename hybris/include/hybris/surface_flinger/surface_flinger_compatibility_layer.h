@@ -25,6 +25,11 @@ extern "C" {
 
 #include <EGL/egl.h>
 #include <EGL/eglext.h>
+#ifdef __ANDROID__
+#include <android/api-level.h>
+#else
+#include <android-config.h>
+#endif
 
 	struct SfClient;
 	struct SfSurface;
@@ -34,8 +39,12 @@ extern "C" {
 		SURFACE_FLINGER_DEFAULT_DISPLAY_ID = 0
 	};
 
+#if (defined(__ANDROID__) && __ANDROID_API__ < 21) || (!defined(__ANDROID__) && ANDROID_VERSION_MAJOR < 5)
 	void sf_blank(size_t display_id);
 	void sf_unblank(size_t display_id);
+#else
+	void sf_set_power_mode(size_t display_id, int mode);
+#endif
 
 	size_t sf_get_display_width(size_t display_id);
 	size_t sf_get_display_height(size_t display_id);

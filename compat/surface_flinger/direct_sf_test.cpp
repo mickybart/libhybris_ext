@@ -18,6 +18,7 @@
  */
 
 #include <hybris/surface_flinger/surface_flinger_compatibility_layer.h>
+#include <hardware/hwcomposer_defs.h>
 
 #include <cstdio>
 #include <unistd.h>
@@ -217,12 +218,20 @@ int main(int argc, char** argv)
 	setupGraphics();
 
 	printf("Turning off screen\n");
+#if __ANDROID_API__ < 21
 	sf_blank(0);
+#else
+	sf_set_power_mode(0, HWC_POWER_MODE_OFF);
+#endif
 
 	sleep(1);
 
 	printf("Turning on screen\n");
+#if __ANDROID_API__ < 21
 	sf_unblank(0);
+#else
+	sf_set_power_mode(0, HWC_POWER_MODE_NORMAL);
+#endif
 
 	for(;;) {
 		hw_render(disp, surface);
