@@ -47,7 +47,9 @@
  */
 
 #ifndef LIBHYBRIS_WANTS_MESA_X11_HEADERS
+#ifndef MESA_EGL_NO_X11_HEADERS
 #define MESA_EGL_NO_X11_HEADERS
+#endif
 #endif
 
 #ifndef EGLAPI
