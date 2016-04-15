@@ -1,8 +1,6 @@
 LOCAL_PATH:= $(call my-dir)
 include $(CLEAR_VARS)
 
-HYBRIS_PATH := $(LOCAL_PATH)/../../hybris
-
 LOCAL_SRC_FILES:= \
 	ui_compatibility_layer.cpp
 
@@ -10,7 +8,7 @@ LOCAL_MODULE:= libui_compat_layer
 LOCAL_MODULE_TAGS := optional
 
 LOCAL_C_INCLUDES := \
-	$(HYBRIS_PATH)/include \
+	$(LOCAL_PATH)/../include \
 	frameworks/native/include
 
 LOCAL_SHARED_LIBRARIES := \

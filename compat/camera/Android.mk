@@ -1,15 +1,13 @@
 LOCAL_PATH:= $(call my-dir)
 include $(CLEAR_VARS)
 
-HYBRIS_PATH := $(LOCAL_PATH)/../../hybris
-
 LOCAL_SRC_FILES := camera_compatibility_layer.cpp
 
 LOCAL_MODULE := libcamera_compat_layer
 LOCAL_MODULE_TAGS := optional
 
 LOCAL_C_INCLUDES := \
-	$(HYBRIS_PATH)/include
+	$(LOCAL_PATH)/../include
 
 LOCAL_SHARED_LIBRARIES := \
 	libcutils \
@@ -24,15 +22,13 @@ include $(BUILD_SHARED_LIBRARY)
 
 include $(CLEAR_VARS)
 
-HYBRIS_PATH := $(LOCAL_PATH)/../../hybris
-
 LOCAL_SRC_FILES := direct_camera_test.cpp
 
 LOCAL_MODULE := direct_camera_test
 LOCAL_MODULE_TAGS := optional
 
 LOCAL_C_INCLUDES := \
-	$(HYBRIS_PATH)/include \
+	$(LOCAL_PATH)/../include \
 	bionic \
 	bionic/libstdc++/include \
 	external/gtest/include \
