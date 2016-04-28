@@ -7,4 +7,4 @@ Name: hybris-surface-flinger
 Description: libhybris surface flinger library
 Version: @VERSION@
 Libs: -L${libdir} -lhybris-common -lsf
-Cflags: -I${includedir}
+Cflags: -I${includedir} -I${includedir}/hybris/surface_flinger
